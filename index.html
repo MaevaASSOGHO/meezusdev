@@ -1,1166 +1,1267 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MEEZUS DEV · Web & Mobile</title>
-  <!-- Font & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MEEZUS DEV · Web & Mobile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        :root {
+            --bg: #070b14;
+            --surface: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text: #e8edf5;
+            --text-secondary: #9aa4bf;
+            --accent-blue: #4b7bff;
+            --accent-violet: #8b5cf6;
+            --accent-pink: #d946ef;
+            --accent-orange: #f97316;
+            --accent-cyan: #22d3ee;
+            --gradient-1: linear-gradient(135deg, #4b7bff, #8b5cf6, #d946ef);
+            --gradient-2: linear-gradient(135deg, #8b5cf6, #d946ef);
+            --glow-blue: 0 0 30px rgba(75, 123, 255, 0.3);
+            --glow-violet: 0 0 30px rgba(139, 92, 246, 0.3);
+            --glow-pink: 0 0 30px rgba(217, 70, 239, 0.3);
+            --glow-orange: 0 0 25px rgba(249, 115, 22, 0.4);
+        }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at top left,#8B5CF620 0%,transparent 40%),
-        radial-gradient(circle at bottom right,#00C2FF20 0%,transparent 40%),
-        linear-gradient(180deg,#05070E,#0B1220);
-      color:white;
-      line-height: 1.5;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    /* HEADER */
-    .header {
-      padding: 20px 0 12px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-      position: sticky;
-      top: 0;
-      background: rgba(249, 250, 255, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 50;
-    }
+        /* Canvas particules */
+        #particlesCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
 
-    .logo {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(145deg, #10172b, #2a3b6b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .logo span {
-      font-weight: 300;
-      color: #4a5c8a;
-      -webkit-text-fill-color: #4a5c8a;
-    }
+        /* HEADER */
+        .header {
+            padding: 20px 0 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            background: rgba(7, 11, 20, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 50;
+        }
 
-    .nav a {
-      margin-left: 32px;
-      text-decoration: none;
-      font-weight: 500;
-      color: #1f2a44;
-      transition: 0.2s;
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
-    .nav a:hover {
-      color: #2f4b9e;
-    }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
 
-    .btn-outline {
-      border: 1.5px solid #1f2a44;
-      padding: 8px 22px;
-      border-radius: 40px;
-      font-weight: 600;
-      background: transparent;
-      transition: 0.2s;
-      color: #1f2a44;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-outline:hover {
-      background: #1f2a44;
-      color: white;
-    }
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5));
+        }
+        .logo span {
+            font-weight: 300;
+            background: linear-gradient(135deg, #9aa4bf, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: none;
+        }
 
-    /* HERO */
-    .hero {
-      padding: 60px 0 30px;
-    }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            color: #c0c9dd;
+            transition: 0.25s;
+            font-size: 0.95rem;
+            cursor: pointer;
+            position: relative;
+        }
+        .nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s;
+            border-radius: 4px;
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
 
-    .hero-grid {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-    }
+        .btn-outline {
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            background: transparent;
+            transition: 0.3s;
+            color: #ffffff;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(10px);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent-violet);
+            background: rgba(139, 92, 246, 0.12);
+            box-shadow: var(--glow-violet);
+        }
 
-    .hero-text {
-      flex: 1 1 400px;
-    }
+        /* HERO */
+        .hero {
+            padding: 80px 0 40px;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle at center, rgba(75, 123, 255, 0.18) 0%, rgba(139, 92, 246, 0.12) 35%, rgba(217, 70, 239, 0.05) 55%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(217, 70, 239, 0.1) 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    .hero-badge {
-      background: #e5ecff;
-      color: #1e3a7a;
-      font-weight: 600;
-      font-size: 0.85rem;
-      padding: 6px 18px;
-      border-radius: 40px;
-      display: inline-block;
-      margin-bottom: 18px;
-      letter-spacing: 0.3px;
-    }
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
 
-    .hero h1 {
-      font-size: clamp(2.5rem, 7vw, 4rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
-    }
-    .hero h1 i {
-      color: #2f4b9e;
-      background: linear-gradient(135deg, #1b2f60, #3f5fb0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        .hero-text {
+            flex: 1 1 400px;
+        }
 
-    .hero p {
-      font-size: 1.2rem;
-      color: #2b3652;
-      max-width: 500px;
-      margin-bottom: 32px;
-      font-weight: 400;
-    }
+        .hero-badge {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            color: #c4b5fd;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 18px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 18px;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
 
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .hero h1 .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+        }
 
-    .btn-primary {
-      background: #0b1a33;
-      color: white;
-      border: none;
-      padding: 14px 40px;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 0.2px;
-      transition: 0.25s;
-      box-shadow: 0 8px 24px rgba(10, 25, 60, 0.15);
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-primary:hover {
-      background: #1f3460;
-      transform: scale(1.02);
-      box-shadow: 0 12px 28px rgba(10, 25, 60, 0.25);
-    }
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0bbd4;
+            max-width: 500px;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
 
-    .btn-secondary {
-      background: transparent;
-      border: 1.5px solid #b6c5e6;
-      padding: 14px 40px;
-      border-radius: 60px;
-      font-weight: 600;
-      color: #1f2a44;
-      transition: 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-secondary:hover {
-      background: #eef3ff;
-      border-color: #2f4b9e;
-    }
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
 
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 48px;
-      flex-wrap: wrap;
-    }
-    .stat-item h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .stat-item p {
-      font-size: 0.9rem;
-      color: #47547a;
-    }
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.2px;
+            transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.35);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.55);
+            transform: translateY(-2px);
+        }
 
-    .hero-visual {
-      flex: 1 1 300px;
-      background: linear-gradient(145deg, #eef3fd, #dce5f7);
-      border-radius: 50px 20px 50px 20px;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 20px 40px -12px rgba(0, 20, 50, 0.2);
-    }
-    .hero-visual i {
-      font-size: 4.5rem;
-      color: #1f3a77;
-      margin-bottom: 12px;
-    }
-    .hero-visual .code-snip {
-      background: #0f1a30;
-      color: #b8ceff;
-      padding: 18px 22px;
-      border-radius: 24px;
-      font-family: 'Inter', monospace;
-      font-size: 0.9rem;
-      width: 100%;
-      max-width: 260px;
-      text-align: left;
-      box-shadow: 0 8px 0 #03070f;
-    }
-    .hero-visual .code-snip span {
-      color: #f7b773;
-    }
+        .btn-secondary {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #e0e6f3;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+        }
 
-    /* SECTIONS GÉNÉRIQUES */
-    .section {
-      padding: 40px 0 20px;
-      border-top: 1px solid rgba(0, 0, 0, 0.03);
-    }
-    .section-title {
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-title i {
-      color: #1f3a77;
-      font-size: 2rem;
-    }
-    .section-sub {
-      color: #40517a;
-      margin-bottom: 30px;
-      font-size: 1.1rem;
-    }
+        .btn-orange {
+            background: var(--accent-orange);
+            color: #000;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--glow-orange);
+        }
+        .btn-orange:hover {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.6);
+            transform: scale(1.03);
+        }
 
-    /* ========== SECTION SERVICES REPENSÉE ========== */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      margin-top: 10px;
-    }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+        .stat-item h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+        .stat-item p {
+            font-size: 0.9rem;
+            color: #8893b0;
+        }
 
-    .service-card {
-      background: #ffffff;
-      border-radius: 32px;
-      padding: 36px 28px 32px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-      border: 1px solid rgba(210, 222, 255, 0.4);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-      display: flex;
-      flex-direction: column;
-      cursor: default;
-    }
+        .hero-visual {
+            flex: 1 1 300px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px 20px 50px 20px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 60px rgba(139, 92, 246, 0.1);
+            position: relative;
+        }
+        .hero-visual i {
+            font-size: 4.5rem;
+            color: #8b5cf6;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.7));
+        }
+        .hero-visual .code-snip {
+            background: rgba(0, 0, 0, 0.6);
+            color: #cbd5e1;
+            padding: 18px 22px;
+            border-radius: 24px;
+            font-family: 'Inter', monospace;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 260px;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
+        .hero-visual .code-snip span {
+            color: #f97316;
+        }
 
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: -40px;
-      right: -40px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(47, 75, 158, 0.04) 0%, transparent 70%);
-      transition: 0.4s;
-      z-index: 0;
-    }
+        /* SECTIONS GÉNÉRIQUES */
+        .section {
+            padding: 60px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+        }
+        .section-title i {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+        }
+        .section-sub {
+            color: #94a3bc;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
 
-    .service-card:hover {
-      transform: translateY(-8px);
-      border-color: #b6c9f0;
-      box-shadow: 0 28px 44px -16px rgba(20, 45, 100, 0.12);
-    }
+        /* ========== SECTION SERVICES ========== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 10px;
+        }
 
-    .service-card:hover::before {
-      width: 180px;
-      height: 180px;
-      top: -60px;
-      right: -60px;
-      background: radial-gradient(circle, rgba(47, 75, 158, 0.08) 0%, transparent 70%);
-    }
+        .service-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 36px 28px 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            cursor: default;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
+            transition: 0.5s;
+            z-index: 0;
+            filter: blur(30px);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.15);
+        }
+        .service-card:hover::before {
+            width: 200px;
+            height: 200px;
+            top: -60px;
+            right: -60px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+        }
 
-    .service-icon-wrap {
-      width: 64px;
-      height: 64px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 22px;
-      font-size: 28px;
-      position: relative;
-      z-index: 1;
-      transition: 0.3s;
-    }
+        .service-icon-wrap {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            font-size: 28px;
+            position: relative;
+            z-index: 1;
+            transition: 0.4s;
+        }
+        .service-card:nth-child(1) .service-icon-wrap {
+            background: rgba(75, 123, 255, 0.15);
+            color: #4b7bff;
+            box-shadow: var(--glow-blue);
+        }
+        .service-card:nth-child(2) .service-icon-wrap {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            box-shadow: var(--glow-violet);
+        }
+        .service-card:nth-child(3) .service-icon-wrap {
+            background: rgba(217, 70, 239, 0.15);
+            color: #d946ef;
+            box-shadow: var(--glow-pink);
+        }
 
-    .service-card:nth-child(1) .service-icon-wrap {
-      background: linear-gradient(135deg, #e8f0ff, #d0dcf8);
-      color: #1d3b7c;
-    }
-    .service-card:nth-child(2) .service-icon-wrap {
-      background: linear-gradient(135deg, #f0e6ff, #e0ccf8);
-      color: #4a2080;
-    }
-    .service-card:nth-child(3) .service-icon-wrap {
-      background: linear-gradient(135deg, #e6fff0, #c8f0dc);
-      color: #1a5c3a;
-    }
+        .service-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+        }
 
-    .service-card h3 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-      color: #0d1b36;
-    }
+        .service-card .service-desc {
+            color: #b0bbd4;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+        }
 
-    .service-card .service-desc {
-      color: #4a5b7e;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 18px;
-      position: relative;
-      z-index: 1;
-      flex-grow: 1;
-    }
+        .service-card .service-highlights {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .service-highlights li {
+            font-size: 0.88rem;
+            color: #c0c9dd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        .service-highlights li i {
+            color: #8b5cf6;
+            font-size: 0.85rem;
+            width: 18px;
+            text-align: center;
+            filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+        }
 
-    .service-card .service-highlights {
-      list-style: none;
-      padding: 0;
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid #edf2fc;
-      padding-top: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+        .service-cta-link {
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #c4b5fd;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            z-index: 1;
+            transition: 0.25s;
+            align-self: flex-start;
+        }
+        .service-cta-link i {
+            transition: transform 0.25s;
+        }
+        .service-cta-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+        }
+        .service-cta-link:hover i {
+            transform: translateX(4px);
+        }
 
-    .service-highlights li {
-      font-size: 0.88rem;
-      color: #2f3f62;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 500;
-    }
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
 
-    .service-highlights li i {
-      color: #2f4b9e;
-      font-size: 0.85rem;
-      width: 18px;
-      text-align: center;
-    }
+        /* ========== TARIFS ========== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 30px 0 20px;
+        }
 
-    .service-cta-link {
-      margin-top: 20px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #1f3a77;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      position: relative;
-      z-index: 1;
-      transition: 0.2s;
-      align-self: flex-start;
-    }
-    .service-cta-link i {
-      transition: transform 0.25s;
-    }
-    .service-cta-link:hover {
-      color: #0b1a33;
-    }
-    .service-cta-link:hover i {
-      transform: translateX(4px);
-    }
+        .pricing-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 22px 16px 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+        }
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 92, 246, 0.15);
+        }
 
-    @media (max-width: 900px) {
-      .services-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-    }
+        .pricing-card .service-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #d4dcec;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pricing-card .service-name i {
+            font-size: 0.9rem;
+            color: #8b5cf6;
+            width: 20px;
+            filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.6));
+        }
 
-    /* ========== TARIFS ========== */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 20px;
-      margin: 30px 0 20px;
-    }
+        .pricing-card .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-top: 4px;
+        }
+        .pricing-card .price small {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #8893b0;
+            margin-left: 4px;
+        }
 
-    .pricing-card {
-      background: white;
-      border-radius: 28px;
-      padding: 22px 16px 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(210, 222, 255, 0.3);
-      transition: 0.25s;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      position: relative;
-    }
-    .pricing-card:hover {
-      transform: translateY(-5px);
-      border-color: #b1c8f0;
-      box-shadow: 0 18px 30px -8px rgba(30, 60, 130, 0.12);
-    }
+        .pricing-card .badge-mensuel {
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #c4b5fd;
+            align-self: flex-start;
+            margin-top: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
 
-    .pricing-card .service-name {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #15203b;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .pricing-card .service-name i {
-      font-size: 0.9rem;
-      color: #3d5ba8;
-      width: 20px;
-    }
+        .pricing-card .click-hint {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 0.7rem;
+            color: #647294;
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .pricing-card:hover .click-hint {
+            opacity: 1;
+            color: #c4b5fd;
+        }
 
-    .pricing-card .price {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #0b1a33;
-      margin-top: 4px;
-    }
-    .pricing-card .price small {
-      font-weight: 400;
-      font-size: 0.85rem;
-      color: #5a6b93;
-      margin-left: 4px;
-    }
+        .highlight-card {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.1);
+        }
+        .highlight-card .service-name {
+            color: #e0d4ff;
+        }
+        .highlight-card .price {
+            color: #ffffff;
+        }
+        .highlight-card .badge-mensuel {
+            background: rgba(249, 115, 22, 0.25);
+            border-color: rgba(249, 115, 22, 0.5);
+            color: #ffb78c;
+        }
 
-    .pricing-card .badge-mensuel {
-      background: #eef4ff;
-      border-radius: 30px;
-      padding: 4px 12px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #1f3a77;
-      align-self: flex-start;
-      margin-top: 12px;
-    }
+        /* MODAL TARIF */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
-    .pricing-card .click-hint {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 0.7rem;
-      color: #a0b3d6;
-      opacity: 0;
-      transition: opacity 0.25s;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .pricing-card:hover .click-hint {
-      opacity: 1;
-    }
+        .modal-box {
+            background: rgba(15, 20, 35, 0.9);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 32px;
+            padding: 40px 32px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(139, 92, 246, 0.2);
+            position: relative;
+            animation: modalIn 0.4s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        @keyframes modalIn {
+            from {
+                transform: translateY(30px) scale(0.94);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
 
-    .highlight-card {
-      background: #0d1b36;
-      border: 1px solid #203b6b;
-      color: white;
-    }
-    .highlight-card .service-name {
-      color: #d4e2ff;
-    }
-    .highlight-card .price {
-      color: #f0f6ff;
-    }
-    .highlight-card .price small {
-      color: #b0c6f0;
-    }
-    .highlight-card .badge-mensuel {
-      background: #263f6e;
-      color: #d7e4ff;
-    }
-    .highlight-card .click-hint {
-      color: #7f9cd0;
-    }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #c0c9dd;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
 
-    /* MODAL TARIF */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(8, 14, 30, 0.7);
-      backdrop-filter: blur(6px);
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+        .modal-box h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+        .modal-box .modal-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+        .modal-box .modal-price small {
+            font-weight: 400;
+            font-size: 1rem;
+            color: #94a3bc;
+        }
+        .modal-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .modal-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-weight: 500;
+            color: #d4dcec;
+            font-size: 0.95rem;
+        }
+        .modal-features li i {
+            color: #8b5cf6;
+            margin-top: 3px;
+            font-size: 1rem;
+            filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.6));
+        }
 
-    .modal-box {
-      background: white;
-      border-radius: 32px;
-      padding: 40px 32px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-      position: relative;
-      animation: modalIn 0.35s ease;
-    }
-    @keyframes modalIn {
-      from {
-        transform: translateY(30px) scale(0.96);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-    }
+        /* SERVICES INCLUS */
+        .included-section {
+            margin: 40px 0 20px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 48px;
+            padding: 40px 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
 
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      background: #f0f3fc;
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      font-size: 1rem;
-      cursor: pointer;
-      color: #3a4f80;
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-close:hover {
-      background: #dce4f8;
-      color: #0b1a33;
-    }
+        .included-section h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+        .included-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 24px;
+        }
+        .included-tags span {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 22px;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #d4dcec;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .included-tags span i {
+            color: #8b5cf6;
+            filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+        }
 
-    .modal-box h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .modal-box .modal-price {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #0d1b36;
-      margin-bottom: 20px;
-    }
-    .modal-box .modal-price small {
-      font-weight: 400;
-      font-size: 1rem;
-      color: #6a7ca3;
-    }
-    .modal-features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .modal-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-weight: 500;
-      color: #1f2e4e;
-      font-size: 0.95rem;
-    }
-    .modal-features li i {
-      color: #1f4b8e;
-      margin-top: 3px;
-      font-size: 1rem;
-    }
+        /* PORTFOLIO */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .portfolio-item {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px 18px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .portfolio-item:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(139, 92, 246, 0.12);
+        }
+        .portfolio-item i {
+            font-size: 2.4rem;
+            color: #8b5cf6;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+        }
+        .portfolio-item h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+        .portfolio-item p {
+            font-size: 0.9rem;
+            color: #94a3bc;
+        }
 
-    /* SERVICES INCLUS (bandeau) */
-    .included-section {
-      margin: 40px 0 20px;
-      background: #edf3fe;
-      border-radius: 48px;
-      padding: 40px 40px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
+        /* FOOTER */
+        .footer {
+            margin-top: 70px;
+            padding: 30px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            color: #94a3bc;
+        }
+        .footer .social i {
+            font-size: 1.4rem;
+            margin-left: 18px;
+            color: #c0c9dd;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .footer .social i:hover {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+        }
 
-    .included-section h3 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #0d1b36;
-    }
-    .included-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px 24px;
-    }
-    .included-tags span {
-      background: white;
-      padding: 8px 22px;
-      border-radius: 60px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      color: #13203d;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .included-tags span i {
-      color: #1f4490;
-    }
-
-    /* PORTFOLIO */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-      margin-top: 20px;
-    }
-    .portfolio-item {
-      background: white;
-      border-radius: 24px;
-      padding: 24px 18px;
-      border: 1px solid #e5ecf7;
-      text-align: center;
-      transition: 0.2s;
-    }
-    .portfolio-item:hover {
-      border-color: #a9bce6;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
-    }
-    .portfolio-item i {
-      font-size: 2.4rem;
-      color: #1f3a77;
-      margin-bottom: 12px;
-    }
-    .portfolio-item h4 {
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .portfolio-item p {
-      font-size: 0.9rem;
-      color: #49587e;
-    }
-
-    /* FOOTER */
-    .footer {
-      margin-top: 70px;
-      padding: 30px 0 30px;
-      border-top: 1px solid rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      color: #3b4b74;
-    }
-    .footer .social i {
-      font-size: 1.4rem;
-      margin-left: 18px;
-      color: #263e6e;
-      transition: 0.15s;
-      cursor: pointer;
-    }
-    .footer .social i:hover {
-      color: #0b1a33;
-    }
-
-    @media (max-width: 700px) {
-      .header-inner {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-      }
-      .nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 16px;
-      }
-      .nav a {
-        margin-left: 0;
-      }
-      .hero-stats {
-        gap: 24px;
-      }
-      .included-section {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-        padding: 30px 20px;
-      }
-      .pricing-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      }
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-      .modal-box {
-        padding: 28px 20px;
-      }
-    }
-  </style>
+        @media (max-width: 700px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .nav {
+                flex-wrap: wrap;
+                gap: 6px 12px;
+            }
+            .nav a {
+                margin-left: 0;
+            }
+            .hero-stats {
+                gap: 24px;
+            }
+            .included-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 30px 20px;
+            }
+            .pricing-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-box {
+                padding: 28px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="container header-inner">
-    <div class="logo">MEEZUS <span>DEV</span></div>
-    <div class="nav">
-      <a href="#services">Services</a>
-      <a href="#tarifs">Tarifs</a>
-      <a href="https://maevaassogho.github.io/Port-folio-MMA/#/home" target="_blank">Portfolio</a>
-      <a href="mailto:meezusdev@gmail.com" class="btn-outline"><i class="fas fa-rocket" style="margin-right: 8px;"></i>Contact</a>
-    </div>
-  </div>
-</header>
+    <!-- Canvas pour les particules -->
+    <canvas id="particlesCanvas"></canvas>
 
-<main class="container">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-text">
-        <div class="hero-badge"><i class="fas fa-code"></i> Développeur Fullstack & Mobile</div>
-        <h1>Code premium, <br/><i>livraison</i> sans friction.</h1>
-        <p>MEEZUS DEV · Web, mobile, API et dashboards. Des solutions sur mesure pour des projets qui comptent.</p>
-        <div class="hero-cta">
-          <a href="mailto:meezusdev@gmail.com" class="btn-primary"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Discuter de votre projet</a>
-          <a href="#tarifs" class="btn-secondary"><i class="fas fa-file-alt"></i> Voir la grille</a>
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo">MEEZUS <span>DEV</span></div>
+            <div class="nav">
+                <a href="#services">Services</a>
+                <a href="#tarifs">Tarifs</a>
+                <a href="https://maevaassogho.github.io/Port-folio-MMA/#/home" target="_blank">Portfolio</a>
+                <a href="mailto:meezusdev@gmail.com" class="btn-outline"><i class="fas fa-rocket"></i>Contact</a>
+            </div>
         </div>
-        <div class="hero-stats">
-          <div class="stat-item"><h3>12+</h3><p>projets livrés</p></div>
-          <div class="stat-item"><h3>4.9</h3><p>note client</p></div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="hero-badge"><i class="fas fa-code"></i> Développeur Fullstack & Mobile</div>
+                    <h1>Code premium, <br /><span class="gradient-text">livraison</span> sans friction.</h1>
+                    <p>MEEZUS DEV · Web, mobile, API et dashboards. Des solutions sur mesure pour des projets qui comptent.</p>
+                    <div class="hero-cta">
+                        <a href="mailto:meezusdev@gmail.com" class="btn-primary"><i class="fas fa-paper-plane"></i>Discuter de votre projet</a>
+                        <a href="#tarifs" class="btn-secondary"><i class="fas fa-file-alt"></i> Voir la grille</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item"><h3>12+</h3><p>projets livrés</p></div>
+                        <div class="stat-item"><h3>4.9</h3><p>note client</p></div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <i class="fas fa-laptop-code"></i>
+                    <div class="code-snip">
+                        <span>// MEEZUS DEV</span><br />
+                        const stack = [React, Next, Flutter, Laravel];<br />
+                        <span>✨ build → deploy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION SERVICES -->
+        <section id="services" class="section">
+            <div class="section-title">
+                <i class="fas fa-cogs"></i> Mes services
+            </div>
+            <div class="section-sub">De l'idée à la mise en production, un accompagnement sur-mesure à chaque étape clé.</div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon-wrap"><i class="fas fa-magnifying-glass-chart"></i></div>
+                    <h3>Analyse & Conseil</h3>
+                    <p class="service-desc">On définit ensemble vos objectifs, votre cible et la meilleure stack technique. Vous repartez avec une feuille de route claire, sans jargon inutile.</p>
+                    <ul class="service-highlights">
+                        <li><i class="fas fa-check-circle"></i> Audit de votre projet existant</li>
+                        <li><i class="fas fa-check-circle"></i> Recommandation de stack sur mesure</li>
+                        <li><i class="fas fa-check-circle"></i> Roadmap technique détaillée</li>
+                    </ul>
+                    <a href="mailto:meezusdev@gmail.com" class="service-cta-link">Démarrer un audit <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrap"><i class="fas fa-code"></i></div>
+                    <h3>Développement</h3>
+                    <p class="service-desc">Du frontend au backend, je donne vie à votre produit avec un code propre, performant et évolutif. React, Next.js, Flutter, Laravel : la stack qui correspond à vos ambitions.</p>
+                    <ul class="service-highlights">
+                        <li><i class="fas fa-check-circle"></i> Applications web & mobile sur mesure</li>
+                        <li><i class="fas fa-check-circle"></i> API REST robustes et documentées</li>
+                        <li><i class="fas fa-check-circle"></i> Code testé, maintenable et scalable</li>
+                    </ul>
+                    <a href="#tarifs" class="service-cta-link">Voir les tarifs <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrap"><i class="fas fa-rocket"></i></div>
+                    <h3>Tests & Déploiement</h3>
+                    <p class="service-desc">Votre projet est entre de bonnes mains jusqu'à la mise en ligne. Tests rigoureux, déploiement sécurisé et support post-livraison pour un lancement sans accroc.</p>
+                    <ul class="service-highlights">
+                        <li><i class="fas fa-check-circle"></i> Tests unitaires & d'intégration</li>
+                        <li><i class="fas fa-check-circle"></i> Mise en ligne sur votre serveur</li>
+                        <li><i class="fas fa-check-circle"></i> Support 30 jours après livraison</li>
+                    </ul>
+                    <a href="mailto:meezusdev@gmail.com" class="service-cta-link">Parlons déploiement <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION TARIFS -->
+        <section id="tarifs" class="section">
+            <div class="section-title">
+                <i class="fas fa-tags"></i> Grille tarifaire
+            </div>
+            <div class="section-sub">Tarifs indicatifs · Côte d'Ivoire · <i class="fas fa-arrow-right"></i> cliquez sur une carte pour découvrir les détails</div>
+
+            <div class="pricing-grid" id="pricingGrid">
+                <!-- Généré en JS -->
+            </div>
+            <p style="text-align: right; font-size: 0.8rem; color: #647294; margin-top: 4px;"><i class="far fa-clock"></i> devis précis selon vos besoins</p>
+        </section>
+
+        <!-- SERVICES INCLUS -->
+        <div class="included-section">
+            <h3><i class="fas fa-check-circle" style="color:#8b5cf6;"></i> Services inclus</h3>
+            <div class="included-tags">
+                <span><i class="fas fa-search"></i> Analyse du besoin</span>
+                <span><i class="fas fa-code"></i> Développement</span>
+                <span><i class="fas fa-vial"></i> Tests</span>
+                <span><i class="fas fa-rocket"></i> Déploiement</span>
+                <span><i class="fas fa-headset"></i> Support après livraison</span>
+            </div>
         </div>
-      </div>
-      <div class="hero-visual">
-        <i class="fas fa-laptop-code"></i>
-        <div class="code-snip">
-          <span>// MEEZUS DEV</span><br/>
-          const stack = [React, Next, Flutter, Laravel];<br/>
-          <span>✨ build → deploy</span>
+
+        <!-- SECTION PORTFOLIO -->
+        <section id="portfolio" class="section">
+            <div class="section-title">
+                <i class="fas fa-briefcase"></i> Portfolio
+            </div>
+            <div class="section-sub">Découvrez mes réalisations sur mon portfolio dédié.</div>
+            <div style="text-align: center; padding: 20px 0;">
+                <a href="https://maevaassogho.github.io/Port-folio-MMA/#/home" target="_blank" class="btn-orange">
+                    <i class="fas fa-external-link-alt"></i> Voir mon portfolio
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div>
+                <strong style="font-size: 1.2rem; color:#ffffff;">MEEZUS DEV</strong>
+                <span style="margin-left: 16px; font-weight: 300;">Développeur web & mobile · Côte d'Ivoire</span>
+            </div>
+            <div class="social">
+                <i class="fab fa-github"></i>
+                <i class="fab fa-linkedin-in"></i>
+                <i class="fab fa-twitter"></i>
+                <a href="mailto:meezusdev@gmail.com" style="color: inherit; text-decoration: none;"><i class="fas fa-envelope"></i></a>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- MODAL OVERLAY -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box" id="modalBox">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <div id="modalContent"></div>
+            <a href="mailto:meezusdev@gmail.com" class="btn-orange" style="display: inline-block; margin-top: 16px;">
+                <i class="fas fa-paper-plane"></i> Demander un devis
+            </a>
         </div>
-      </div>
     </div>
-  </section>
 
-  <!-- SECTION SERVICES REPENSÉE -->
-  <section id="services" class="section">
-    <div class="section-title">
-      <i class="fas fa-cogs"></i> Mes services
-    </div>
-    <div class="section-sub">De l'idée à la mise en production, un accompagnement sur-mesure à chaque étape clé.</div>
+    <script>
+        (function () {
+            // ---------- PARTICULES ANIMÉES ----------
+            const canvas = document.getElementById('particlesCanvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const particleCount = 70;
 
-    <div class="services-grid">
-      <!-- Service 1 -->
-      <div class="service-card">
-        <div class="service-icon-wrap"><i class="fas fa-magnifying-glass-chart"></i></div>
-        <h3>Analyse & Conseil</h3>
-        <p class="service-desc">On définit ensemble vos objectifs, votre cible et la meilleure stack technique. Vous repartez avec une feuille de route claire, sans jargon inutile.</p>
-        <ul class="service-highlights">
-          <li><i class="fas fa-check-circle"></i> Audit de votre projet existant</li>
-          <li><i class="fas fa-check-circle"></i> Recommandation de stack sur mesure</li>
-          <li><i class="fas fa-check-circle"></i> Roadmap technique détaillée</li>
-        </ul>
-        <a href="mailto:meezusdev@gmail.com" class="service-cta-link">Démarrer un audit <i class="fas fa-arrow-right"></i></a>
-      </div>
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
 
-      <!-- Service 2 -->
-      <div class="service-card">
-        <div class="service-icon-wrap"><i class="fas fa-code"></i></div>
-        <h3>Développement</h3>
-        <p class="service-desc">Du frontend au backend, je donne vie à votre produit avec un code propre, performant et évolutif. React, Next.js, Flutter, Laravel : la stack qui correspond à vos ambitions.</p>
-        <ul class="service-highlights">
-          <li><i class="fas fa-check-circle"></i> Applications web & mobile sur mesure</li>
-          <li><i class="fas fa-check-circle"></i> API REST robustes et documentées</li>
-          <li><i class="fas fa-check-circle"></i> Code testé, maintenable et scalable</li>
-        </ul>
-        <a href="#tarifs" class="service-cta-link">Voir les tarifs <i class="fas fa-arrow-right"></i></a>
-      </div>
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 1.8 + 0.4;
+                    this.speedX = (Math.random() - 0.5) * 0.35;
+                    this.speedY = (Math.random() - 0.5) * 0.35;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.color = `rgba(139, 92, 246, ${this.opacity})`;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < -10 || this.x > canvas.width + 10 || this.y < -10 || this.y > canvas.height + 10) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = 'rgba(139, 92, 246, 0.7)';
+                    ctx.shadowBlur = 8;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
 
-      <!-- Service 3 -->
-      <div class="service-card">
-        <div class="service-icon-wrap"><i class="fas fa-rocket"></i></div>
-        <h3>Tests & Déploiement</h3>
-        <p class="service-desc">Votre projet est entre de bonnes mains jusqu'à la mise en ligne. Tests rigoureux, déploiement sécurisé et support post-livraison pour un lancement sans accroc.</p>
-        <ul class="service-highlights">
-          <li><i class="fas fa-check-circle"></i> Tests unitaires & d'intégration</li>
-          <li><i class="fas fa-check-circle"></i> Mise en ligne sur votre serveur</li>
-          <li><i class="fas fa-check-circle"></i> Support 30 jours après livraison</li>
-        </ul>
-        <a href="mailto:meezusdev@gmail.com" class="service-cta-link">Parlons déploiement <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </section>
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
 
-  <!-- SECTION TARIFS -->
-  <section id="tarifs" class="section">
-    <div class="section-title">
-      <i class="fas fa-tags"></i> Grille tarifaire
-    </div>
-    <div class="section-sub">Tarifs indicatifs · Côte d'Ivoire · <i class="fas fa-arrow-right"></i> cliquez sur une carte pour découvrir les détails</div>
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
 
-    <div class="pricing-grid" id="pricingGrid">
-      <!-- Les cartes sont générées dynamiquement en JS pour plus de clarté -->
-    </div>
-    <p style="text-align: right; font-size: 0.8rem; color: #5e6f97; margin-top: 4px;"><i class="far fa-clock"></i> devis précis selon vos besoins</p>
-  </section>
+            // ---------- GRILLE TARIFAIRE INTERACTIVE ----------
+            const pricingData = [
+                { icon: "fas fa-flag", name: "Landing page", price: "80 000", unit: "FCFA", features: [
+                    "Page unique optimisée pour la conversion", "Design responsive (mobile, tablette, desktop)",
+                    "Formulaire de contact fonctionnel", "Intégration de vos visuels et textes",
+                    "Optimisation SEO de base", "Déploiement inclus"
+                ], highlight: false },
+                { icon: "fas fa-window-maximize", name: "Site vitrine", price: "180 000", unit: "FCFA", features: [
+                    "Jusqu'à 5 pages (accueil, services, à propos, contact, blog)", "Design personnalisé sur mesure",
+                    "Galerie photos / portfolio intégrée", "Formulaire de contact avancé",
+                    "Optimisation SEO complète", "Déploiement & support 15 jours"
+                ], highlight: false },
+                { icon: "fas fa-crown", name: "Vitrine premium", price: "350 000", unit: "FCFA", features: [
+                    "Jusqu'à 10 pages avec animations fluides", "Design UI/UX premium personnalisé",
+                    "Blog intégré avec catégories", "Système de newsletter basique",
+                    "Optimisation SEO & performance avancée", "Dashboard d'administration simple",
+                    "Déploiement & support 30 jours"
+                ], highlight: true },
+                { icon: "fas fa-shopping-bag", name: "E-commerce", price: "700 000", unit: "FCFA", features: [
+                    "Catalogue produits avec catégories et filtres", "Panier & tunnel de commande complet",
+                    "Paiement mobile (Orange Money, MTN, Wave)", "Espace client (commandes, profil)",
+                    "Tableau de bord administrateur", "Gestion des stocks simplifiée",
+                    "Déploiement & formation incluse"
+                ], highlight: false },
+                { icon: "fas fa-globe", name: "Application web", price: "800 000", unit: "FCFA", features: [
+                    "Application web sur mesure (React/Next.js)", "Authentification & gestion des rôles",
+                    "Base de données et API REST dédiée", "Interface d'administration complète",
+                    "Tests unitaires & d'intégration", "Déploiement sur serveur sécurisé",
+                    "Support technique 30 jours"
+                ], highlight: false },
+                { icon: "fas fa-mobile-alt", name: "App mobile Flutter", price: "900 000", unit: "FCFA", features: [
+                    "Application mobile native (iOS & Android)", "Interface fluide et animations soignées",
+                    "Authentification & profils utilisateurs", "Synchronisation avec API backend",
+                    "Mode hors-ligne partiel", "Publication sur les stores incluse",
+                    "Support & maintenance 30 jours"
+                ], highlight: true },
+                { icon: "fas fa-plug", name: "API Laravel", price: "250 000", unit: "FCFA", features: [
+                    "API RESTful complète et documentée", "Authentification par tokens (Sanctum)",
+                    "Endpoints CRUD pour vos ressources", "Validation et gestion des erreurs",
+                    "Documentation Postman fournie", "Déploiement sur votre serveur"
+                ], highlight: false },
+                { icon: "fas fa-chart-pie", name: "Dashboard admin", price: "300 000", unit: "FCFA", features: [
+                    "Interface d'administration intuitive", "Tableaux de bord avec graphiques",
+                    "Gestion des utilisateurs et rôles", "Export de données (CSV, PDF)",
+                    "Statistiques en temps réel", "Design responsive adapté"
+                ], highlight: false },
+                { icon: "fas fa-paint-brush", name: "Figma → Next/React", price: "150 000", unit: "FCFA", features: [
+                    "Intégration fidèle de votre maquette Figma", "Code React/Next.js propre et modulaire",
+                    "Composants réutilisables", "Animations et transitions fluides",
+                    "Responsive design impeccable", "Revue de code incluse"
+                ], highlight: false },
+                { icon: "fas fa-bug", name: "Correction bugs", price: "25 000", unit: "FCFA", features: [
+                    "Diagnostic et correction de bugs", "Prix par intervention (hors développement lourd)",
+                    "Rapport de correction fourni", "Test de non-régression",
+                    "Intervention rapide sous 48h"
+                ], highlight: false },
+                { icon: "fas fa-cloud-upload-alt", name: "Déploiement", price: "50 000", unit: "FCFA", features: [
+                    "Mise en ligne sur votre serveur/hébergement", "Configuration du nom de domaine",
+                    "Certificat SSL activé", "Sauvegarde de la base de données",
+                    "Vérification post-déploiement"
+                ], highlight: false },
+                { icon: "fas fa-sync-alt", name: "Maintenance", price: "40 000", unit: "FCFA/mois", features: [
+                    "Mises à jour de sécurité régulières", "Sauvegardes automatiques",
+                    "Surveillance de la disponibilité", "Corrections de bugs mineurs incluses",
+                    "Support prioritaire par email", "Engagement mensuel sans durée minimum"
+                ], highlight: true, isSubscription: true }
+            ];
 
-  <!-- SERVICES INCLUS -->
-  <div class="included-section">
-    <h3><i class="fas fa-check-circle" style="color:#1d3f82;"></i> Services inclus</h3>
-    <div class="included-tags">
-      <span><i class="fas fa-search"></i> Analyse du besoin</span>
-      <span><i class="fas fa-code"></i> Développement</span>
-      <span><i class="fas fa-vial"></i> Tests</span>
-      <span><i class="fas fa-rocket"></i> Déploiement</span>
-      <span><i class="fas fa-headset"></i> Support après livraison</span>
-    </div>
-  </div>
+            const pricingGrid = document.getElementById('pricingGrid');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalContent = document.getElementById('modalContent');
+            const modalClose = document.getElementById('modalClose');
 
-  <!-- SECTION PORTFOLIO -->
-  <section id="portfolio" class="section">
-    <div class="section-title">
-      <i class="fas fa-briefcase"></i> Portfolio
-    </div>
-    <div class="section-sub">Découvrez mes réalisations sur mon portfolio dédié.</div>
-    <div style="text-align: center; padding: 20px 0;">
-      <a href="https://maevaassogho.github.io/Port-folio-MMA/#/home" target="_blank" class="btn-primary" style="background: #1f3a77; padding: 16px 48px;">
-        <i class="fas fa-external-link-alt"></i> Voir mon portfolio
-      </a>
-    </div>
-  </section>
+            function renderPricingCards() {
+                pricingGrid.innerHTML = '';
+                pricingData.forEach((service, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'pricing-card' + (service.highlight ? ' highlight-card' : '');
+                    card.setAttribute('data-index', index);
+                    card.innerHTML = `
+                        <div class="click-hint"><i class="fas fa-info-circle"></i> détails</div>
+                        <div class="service-name"><i class="${service.icon}"></i> ${service.name}</div>
+                        <div class="price">${service.price} <small>${service.unit}</small></div>
+                        ${service.isSubscription ? '<div class="badge-mensuel">abonnement</div>' : ''}
+                    `;
+                    card.addEventListener('click', () => openModal(index));
+                    pricingGrid.appendChild(card);
+                });
+            }
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div>
-      <strong style="font-size: 1.2rem; color:#0d1b36;">MEEZUS DEV</strong>
-      <span style="margin-left: 16px; font-weight: 300;">Développeur web & mobile · Côte d'Ivoire</span>
-    </div>
-    <div class="social">
-      <i class="fab fa-github"></i>
-      <i class="fab fa-linkedin-in"></i>
-      <i class="fab fa-twitter"></i>
-      <a href="mailto:meezusdev@gmail.com" style="color: inherit; text-decoration: none;"><i class="fas fa-envelope"></i></a>
-    </div>
-  </footer>
+            function openModal(index) {
+                const service = pricingData[index];
+                const featuresHTML = service.features.map(f => `
+                    <li><i class="fas fa-circle-check"></i> ${f}</li>
+                `).join('');
+                modalContent.innerHTML = `
+                    <h2><i class="${service.icon}" style="color:#8b5cf6;"></i> ${service.name}</h2>
+                    <div class="modal-price">${service.price} <small>${service.unit}</small></div>
+                    <ul class="modal-features">${featuresHTML}</ul>
+                    ${service.isSubscription ? '<p style="font-size:0.85rem;color:#94a3bc;margin-top:-8px;"><i class="fas fa-info-circle"></i> Sans engagement, résiliable à tout moment.</p>' : ''}
+                `;
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
 
-</main>
+            function closeModal() {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
 
-<!-- MODAL OVERLAY -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal-box" id="modalBox">
-    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-    <div id="modalContent"></div>
-    <a href="mailto:meezusdev@gmail.com" class="btn-primary" style="display: inline-block; margin-top: 16px; padding: 12px 32px;">
-      <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Demander un devis
-    </a>
-  </div>
-</div>
+            modalClose.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
 
-<script>
-  (function() {
-    // Données détaillées pour chaque service tarifaire
-    const pricingData = [
-      {
-        icon: "fas fa-flag",
-        name: "Landing page",
-        price: "80 000",
-        unit: "FCFA",
-        features: [
-          "Page unique optimisée pour la conversion",
-          "Design responsive (mobile, tablette, desktop)",
-          "Formulaire de contact fonctionnel",
-          "Intégration de vos visuels et textes",
-          "Optimisation SEO de base",
-          "Déploiement inclus"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-window-maximize",
-        name: "Site vitrine",
-        price: "180 000",
-        unit: "FCFA",
-        features: [
-          "Jusqu'à 5 pages (accueil, services, à propos, contact, blog)",
-          "Design personnalisé sur mesure",
-          "Galerie photos / portfolio intégrée",
-          "Formulaire de contact avancé",
-          "Optimisation SEO complète",
-          "Déploiement & support 15 jours"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-crown",
-        name: "Vitrine premium",
-        price: "350 000",
-        unit: "FCFA",
-        features: [
-          "Jusqu'à 10 pages avec animations fluides",
-          "Design UI/UX premium personnalisé",
-          "Blog intégré avec catégories",
-          "Système de newsletter basique",
-          "Optimisation SEO & performance avancée",
-          "Dashboard d'administration simple",
-          "Déploiement & support 30 jours"
-        ],
-        highlight: true
-      },
-      {
-        icon: "fas fa-shopping-bag",
-        name: "E-commerce",
-        price: "700 000",
-        unit: "FCFA",
-        features: [
-          "Catalogue produits avec catégories et filtres",
-          "Panier & tunnel de commande complet",
-          "Paiement mobile (Orange Money, MTN, Wave)",
-          "Espace client (commandes, profil)",
-          "Tableau de bord administrateur",
-          "Gestion des stocks simplifiée",
-          "Déploiement & formation incluse"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-globe",
-        name: "Application web",
-        price: "800 000",
-        unit: "FCFA",
-        features: [
-          "Application web sur mesure (React/Next.js)",
-          "Authentification & gestion des rôles",
-          "Base de données et API REST dédiée",
-          "Interface d'administration complète",
-          "Tests unitaires & d'intégration",
-          "Déploiement sur serveur sécurisé",
-          "Support technique 30 jours"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-mobile-alt",
-        name: "App mobile Flutter",
-        price: "900 000",
-        unit: "FCFA",
-        features: [
-          "Application mobile native (iOS & Android)",
-          "Interface fluide et animations soignées",
-          "Authentification & profils utilisateurs",
-          "Synchronisation avec API backend",
-          "Mode hors-ligne partiel",
-          "Publication sur les stores incluse",
-          "Support & maintenance 30 jours"
-        ],
-        highlight: true
-      },
-      {
-        icon: "fas fa-plug",
-        name: "API Laravel",
-        price: "250 000",
-        unit: "FCFA",
-        features: [
-          "API RESTful complète et documentée",
-          "Authentification par tokens (Sanctum)",
-          "Endpoints CRUD pour vos ressources",
-          "Validation et gestion des erreurs",
-          "Documentation Postman fournie",
-          "Déploiement sur votre serveur"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-chart-pie",
-        name: "Dashboard admin",
-        price: "300 000",
-        unit: "FCFA",
-        features: [
-          "Interface d'administration intuitive",
-          "Tableaux de bord avec graphiques",
-          "Gestion des utilisateurs et rôles",
-          "Export de données (CSV, PDF)",
-          "Statistiques en temps réel",
-          "Design responsive adapté"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-paint-brush",
-        name: "Figma → Next/React",
-        price: "150 000",
-        unit: "FCFA",
-        features: [
-          "Intégration fidèle de votre maquette Figma",
-          "Code React/Next.js propre et modulaire",
-          "Composants réutilisables",
-          "Animations et transitions fluides",
-          "Responsive design impeccable",
-          "Revue de code incluse"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-bug",
-        name: "Correction bugs",
-        price: "25 000",
-        unit: "FCFA",
-        features: [
-          "Diagnostic et correction de bugs",
-          "Prix par intervention (hors développement lourd)",
-          "Rapport de correction fourni",
-          "Test de non-régression",
-          "Intervention rapide sous 48h"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-cloud-upload-alt",
-        name: "Déploiement",
-        price: "50 000",
-        unit: "FCFA",
-        features: [
-          "Mise en ligne sur votre serveur/hébergement",
-          "Configuration du nom de domaine",
-          "Certificat SSL activé",
-          "Sauvegarde de la base de données",
-          "Vérification post-déploiement"
-        ],
-        highlight: false
-      },
-      {
-        icon: "fas fa-sync-alt",
-        name: "Maintenance",
-        price: "40 000",
-        unit: "FCFA/mois",
-        features: [
-          "Mises à jour de sécurité régulières",
-          "Sauvegardes automatiques",
-          "Surveillance de la disponibilité",
-          "Corrections de bugs mineurs incluses",
-          "Support prioritaire par email",
-          "Engagement mensuel sans durée minimum"
-        ],
-        highlight: true,
-        isSubscription: true
-      }
-    ];
-
-    const pricingGrid = document.getElementById('pricingGrid');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalContent = document.getElementById('modalContent');
-    const modalClose = document.getElementById('modalClose');
-
-    // Génération des cartes tarifaires
-    function renderPricingCards() {
-      pricingGrid.innerHTML = '';
-      pricingData.forEach((service, index) => {
-        const card = document.createElement('div');
-        card.className = 'pricing-card' + (service.highlight ? ' highlight-card' : '');
-        card.setAttribute('data-index', index);
-        card.innerHTML = `
-          <div class="click-hint"><i class="fas fa-info-circle"></i> détails</div>
-          <div class="service-name"><i class="${service.icon}"></i> ${service.name}</div>
-          <div class="price">${service.price} <small>${service.unit}</small></div>
-          ${service.isSubscription ? '<div class="badge-mensuel">abonnement</div>' : ''}
-        `;
-        card.addEventListener('click', () => openModal(index));
-        pricingGrid.appendChild(card);
-      });
-    }
-
-    function openModal(index) {
-      const service = pricingData[index];
-      const featuresHTML = service.features.map(f => `
-        <li><i class="fas fa-circle-check"></i> ${f}</li>
-      `).join('');
-
-      modalContent.innerHTML = `
-        <h2><i class="${service.icon}" style="color:#1f3a77;"></i> ${service.name}</h2>
-        <div class="modal-price">${service.price} <small>${service.unit}</small></div>
-        <ul class="modal-features">${featuresHTML}</ul>
-        ${service.isSubscription ? '<p style="font-size:0.85rem;color:#4a5b7e;margin-top:-8px;"><i class="fas fa-info-circle"></i> Sans engagement, résiliable à tout moment.</p>' : ''}
-      `;
-      modalOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modalOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // Initialisation
-    renderPricingCards();
-  })();
-</script>
-
+            renderPricingCards();
+        })();
+    </script>
 </body>
 </html>
