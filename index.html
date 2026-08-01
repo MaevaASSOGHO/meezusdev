@@ -36,7 +36,7 @@
     /* HEADER */
     .header {
       padding: 20px 0 12px;
-      border-bottom: 1px solid rgba(0,0,0,0.03);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
       position: sticky;
       top: 0;
       background: rgba(249, 250, 255, 0.85);
@@ -216,7 +216,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 20px 40px -12px rgba(0,20,50,0.2);
+      box-shadow: 0 20px 40px -12px rgba(0, 20, 50, 0.2);
     }
     .hero-visual i {
       font-size: 4.5rem;
@@ -242,7 +242,7 @@
     /* SECTIONS GÉNÉRIQUES */
     .section {
       padding: 40px 0 20px;
-      border-top: 1px solid rgba(0,0,0,0.03);
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
     }
     .section-title {
       font-size: 2.4rem;
@@ -263,7 +263,162 @@
       font-size: 1.1rem;
     }
 
-    /* TARIFS */
+    /* ========== SECTION SERVICES REPENSÉE ========== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 10px;
+    }
+
+    .service-card {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 36px 28px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(210, 222, 255, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      cursor: default;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(47, 75, 158, 0.04) 0%, transparent 70%);
+      transition: 0.4s;
+      z-index: 0;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: #b6c9f0;
+      box-shadow: 0 28px 44px -16px rgba(20, 45, 100, 0.12);
+    }
+
+    .service-card:hover::before {
+      width: 180px;
+      height: 180px;
+      top: -60px;
+      right: -60px;
+      background: radial-gradient(circle, rgba(47, 75, 158, 0.08) 0%, transparent 70%);
+    }
+
+    .service-icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      font-size: 28px;
+      position: relative;
+      z-index: 1;
+      transition: 0.3s;
+    }
+
+    .service-card:nth-child(1) .service-icon-wrap {
+      background: linear-gradient(135deg, #e8f0ff, #d0dcf8);
+      color: #1d3b7c;
+    }
+    .service-card:nth-child(2) .service-icon-wrap {
+      background: linear-gradient(135deg, #f0e6ff, #e0ccf8);
+      color: #4a2080;
+    }
+    .service-card:nth-child(3) .service-icon-wrap {
+      background: linear-gradient(135deg, #e6fff0, #c8f0dc);
+      color: #1a5c3a;
+    }
+
+    .service-card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      color: #0d1b36;
+    }
+
+    .service-card .service-desc {
+      color: #4a5b7e;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+      flex-grow: 1;
+    }
+
+    .service-card .service-highlights {
+      list-style: none;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid #edf2fc;
+      padding-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-highlights li {
+      font-size: 0.88rem;
+      color: #2f3f62;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .service-highlights li i {
+      color: #2f4b9e;
+      font-size: 0.85rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    .service-cta-link {
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #1f3a77;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      z-index: 1;
+      transition: 0.2s;
+      align-self: flex-start;
+    }
+    .service-cta-link i {
+      transition: transform 0.25s;
+    }
+    .service-cta-link:hover {
+      color: #0b1a33;
+    }
+    .service-cta-link:hover i {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 900px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    /* ========== TARIFS ========== */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -277,14 +432,16 @@
       padding: 22px 16px 20px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
       border: 1px solid rgba(210, 222, 255, 0.3);
-      transition: 0.2s;
+      transition: 0.25s;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
+      position: relative;
     }
     .pricing-card:hover {
       transform: translateY(-5px);
       border-color: #b1c8f0;
-      box-shadow: 0 18px 30px -8px rgba(30, 60, 130, 0.08);
+      box-shadow: 0 18px 30px -8px rgba(30, 60, 130, 0.12);
     }
 
     .pricing-card .service-name {
@@ -327,6 +484,22 @@
       margin-top: 12px;
     }
 
+    .pricing-card .click-hint {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 0.7rem;
+      color: #a0b3d6;
+      opacity: 0;
+      transition: opacity 0.25s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pricing-card:hover .click-hint {
+      opacity: 1;
+    }
+
     .highlight-card {
       background: #0d1b36;
       border: 1px solid #203b6b;
@@ -345,8 +518,114 @@
       background: #263f6e;
       color: #d7e4ff;
     }
+    .highlight-card .click-hint {
+      color: #7f9cd0;
+    }
 
-    /* SERVICES INCLUS (on le garde comme section) */
+    /* MODAL TARIF */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 14, 30, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: white;
+      border-radius: 32px;
+      padding: 40px 32px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: modalIn 0.35s ease;
+    }
+    @keyframes modalIn {
+      from {
+        transform: translateY(30px) scale(0.96);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: #f0f3fc;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #3a4f80;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover {
+      background: #dce4f8;
+      color: #0b1a33;
+    }
+
+    .modal-box h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-box .modal-price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0d1b36;
+      margin-bottom: 20px;
+    }
+    .modal-box .modal-price small {
+      font-weight: 400;
+      font-size: 1rem;
+      color: #6a7ca3;
+    }
+    .modal-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-weight: 500;
+      color: #1f2e4e;
+      font-size: 0.95rem;
+    }
+    .modal-features li i {
+      color: #1f4b8e;
+      margin-top: 3px;
+      font-size: 1rem;
+    }
+
+    /* SERVICES INCLUS (bandeau) */
     .included-section {
       margin: 40px 0 20px;
       background: #edf3fe;
@@ -378,7 +657,7 @@
       font-weight: 500;
       font-size: 0.9rem;
       color: #13203d;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -387,7 +666,7 @@
       color: #1f4490;
     }
 
-    /* PORTFOLIO (exemple) */
+    /* PORTFOLIO */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -404,7 +683,7 @@
     }
     .portfolio-item:hover {
       border-color: #a9bce6;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
     }
     .portfolio-item i {
       font-size: 2.4rem;
@@ -424,7 +703,7 @@
     .footer {
       margin-top: 70px;
       padding: 30px 0 30px;
-      border-top: 1px solid rgba(0,0,0,0.04);
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -468,6 +747,12 @@
       .pricing-grid {
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       }
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .modal-box {
+        padding: 28px 20px;
+      }
     }
   </style>
 </head>
@@ -479,7 +764,6 @@
     <div class="nav">
       <a href="#services">Services</a>
       <a href="#tarifs">Tarifs</a>
-      <!-- Lien vers votre portfolio externe -->
       <a href="https://maevaassogho.github.io/Port-folio-MMA/#/home" target="_blank">Portfolio</a>
       <a href="mailto:contact@meezus.dev" class="btn-outline"><i class="fas fa-rocket" style="margin-right: 8px;"></i>Contact</a>
     </div>
@@ -515,16 +799,52 @@
     </div>
   </section>
 
-  <!-- SECTION SERVICES -->
+  <!-- SECTION SERVICES REPENSÉE -->
   <section id="services" class="section">
     <div class="section-title">
       <i class="fas fa-cogs"></i> Mes services
     </div>
-    <div class="section-sub">De l’idée à la mise en production, je vous accompagne sur tout le cycle de vie de votre projet.</div>
-    <div style="display: flex; flex-wrap: wrap; gap: 30px; background: #f2f7ff; border-radius: 40px; padding: 30px 30px;">
-      <div style="flex:1; min-width:150px;"><i class="fas fa-pencil-ruler" style="color:#1f3a77; font-size:1.8rem;"></i><h4>Analyse & conseil</h4><p style="color:#3c4e79;">Cadrage technique, stack adaptée, roadmap.</p></div>
-      <div style="flex:1; min-width:150px;"><i class="fas fa-code" style="color:#1f3a77; font-size:1.8rem;"></i><h4>Développement</h4><p style="color:#3c4e79;">React, Next, Flutter, Laravel, API REST.</p></div>
-      <div style="flex:1; min-width:150px;"><i class="fas fa-check-double" style="color:#1f3a77; font-size:1.8rem;"></i><h4>Tests & déploiement</h4><p style="color:#3c4e79;">Qualité, performance, mise en ligne sereine.</p></div>
+    <div class="section-sub">De l'idée à la mise en production, un accompagnement sur-mesure à chaque étape clé.</div>
+
+    <div class="services-grid">
+      <!-- Service 1 -->
+      <div class="service-card">
+        <div class="service-icon-wrap"><i class="fas fa-magnifying-glass-chart"></i></div>
+        <h3>Analyse & Conseil</h3>
+        <p class="service-desc">On définit ensemble vos objectifs, votre cible et la meilleure stack technique. Vous repartez avec une feuille de route claire, sans jargon inutile.</p>
+        <ul class="service-highlights">
+          <li><i class="fas fa-check-circle"></i> Audit de votre projet existant</li>
+          <li><i class="fas fa-check-circle"></i> Recommandation de stack sur mesure</li>
+          <li><i class="fas fa-check-circle"></i> Roadmap technique détaillée</li>
+        </ul>
+        <a href="mailto:contact@meezus.dev" class="service-cta-link">Démarrer un audit <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card">
+        <div class="service-icon-wrap"><i class="fas fa-code"></i></div>
+        <h3>Développement</h3>
+        <p class="service-desc">Du frontend au backend, je donne vie à votre produit avec un code propre, performant et évolutif. React, Next.js, Flutter, Laravel : la stack qui correspond à vos ambitions.</p>
+        <ul class="service-highlights">
+          <li><i class="fas fa-check-circle"></i> Applications web & mobile sur mesure</li>
+          <li><i class="fas fa-check-circle"></i> API REST robustes et documentées</li>
+          <li><i class="fas fa-check-circle"></i> Code testé, maintenable et scalable</li>
+        </ul>
+        <a href="#tarifs" class="service-cta-link">Voir les tarifs <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card">
+        <div class="service-icon-wrap"><i class="fas fa-rocket"></i></div>
+        <h3>Tests & Déploiement</h3>
+        <p class="service-desc">Votre projet est entre de bonnes mains jusqu'à la mise en ligne. Tests rigoureux, déploiement sécurisé et support post-livraison pour un lancement sans accroc.</p>
+        <ul class="service-highlights">
+          <li><i class="fas fa-check-circle"></i> Tests unitaires & d'intégration</li>
+          <li><i class="fas fa-check-circle"></i> Mise en ligne sur votre serveur</li>
+          <li><i class="fas fa-check-circle"></i> Support 30 jours après livraison</li>
+        </ul>
+        <a href="mailto:contact@meezus.dev" class="service-cta-link">Parlons déploiement <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
   </section>
 
@@ -533,38 +853,15 @@
     <div class="section-title">
       <i class="fas fa-tags"></i> Grille tarifaire
     </div>
-    <div class="section-sub">Tarifs indicatifs · Côte d'Ivoire · <i class="fas fa-arrow-right"></i> chaque projet est unique</div>
+    <div class="section-sub">Tarifs indicatifs · Côte d'Ivoire · <i class="fas fa-arrow-right"></i> cliquez sur une carte pour découvrir les détails</div>
 
-    <div class="pricing-grid">
-      <!-- Landing page -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-flag"></i> Landing page</div><div class="price">80 000 <small>FCFA</small></div></div>
-      <!-- Site vitrine -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-window-maximize"></i> Site vitrine</div><div class="price">180 000 <small>FCFA</small></div></div>
-      <!-- Site vitrine premium -->
-      <div class="pricing-card highlight-card"><div class="service-name"><i class="fas fa-crown"></i> Vitrine premium</div><div class="price">350 000 <small>FCFA</small></div></div>
-      <!-- E-commerce -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-shopping-bag"></i> E‑commerce</div><div class="price">700 000 <small>FCFA</small></div></div>
-      <!-- App web -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-globe"></i> Application web</div><div class="price">800 000 <small>FCFA</small></div></div>
-      <!-- App mobile Flutter -->
-      <div class="pricing-card highlight-card"><div class="service-name"><i class="fas fa-mobile-alt"></i> App mobile Flutter</div><div class="price">900 000 <small>FCFA</small></div></div>
-      <!-- API Laravel -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-plug"></i> API Laravel</div><div class="price">250 000 <small>FCFA</small></div></div>
-      <!-- Dashboard admin -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-chart-pie"></i> Dashboard admin</div><div class="price">300 000 <small>FCFA</small></div></div>
-      <!-- Figma → Next/React -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-paint-brush"></i> Figma → Next/React</div><div class="price">150 000 <small>FCFA</small></div></div>
-      <!-- Correction bugs -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-bug"></i> Correction bugs</div><div class="price">25 000 <small>FCFA</small></div></div>
-      <!-- Déploiement -->
-      <div class="pricing-card"><div class="service-name"><i class="fas fa-cloud-upload-alt"></i> Déploiement</div><div class="price">50 000 <small>FCFA</small></div></div>
-      <!-- Maintenance mensuelle -->
-      <div class="pricing-card highlight-card"><div class="service-name"><i class="fas fa-sync-alt"></i> Maintenance</div><div class="price">40 000 <small>FCFA/mois</small><div class="badge-mensuel">abonnement</div></div></div>
+    <div class="pricing-grid" id="pricingGrid">
+      <!-- Les cartes sont générées dynamiquement en JS pour plus de clarté -->
     </div>
     <p style="text-align: right; font-size: 0.8rem; color: #5e6f97; margin-top: 4px;"><i class="far fa-clock"></i> devis précis selon vos besoins</p>
   </section>
 
-  <!-- SERVICES INCLUS (déplacé ici mais reste dans la section tarifs ou à part) -->
+  <!-- SERVICES INCLUS -->
   <div class="included-section">
     <h3><i class="fas fa-check-circle" style="color:#1d3f82;"></i> Services inclus</h3>
     <div class="included-tags">
@@ -576,7 +873,7 @@
     </div>
   </div>
 
-  <!-- SECTION PORTFOLIO (gardée mais le lien du menu pointe déjà vers votre portfolio externe) -->
+  <!-- SECTION PORTFOLIO -->
   <section id="portfolio" class="section">
     <div class="section-title">
       <i class="fas fa-briefcase"></i> Portfolio
@@ -586,12 +883,6 @@
       <a href="https://maevaassogho.github.io/Port-folio-MMA/#/home" target="_blank" class="btn-primary" style="background: #1f3a77; padding: 16px 48px;">
         <i class="fas fa-external-link-alt"></i> Voir mon portfolio
       </a>
-    </div>
-    <!-- On conserve les exemple cards mais on les rend non cliquables, juste pour le style -->
-    <div class="portfolio-grid">
-      <div class="portfolio-item"><i class="fas fa-store"></i><h4>E-shop Ivory</h4><p>Solution e-commerce avec paiement mobile</p></div>
-      <div class="portfolio-item"><i class="fas fa-chart-line"></i><h4>DashInvest</h4><p>Dashboard d'analyse financière en temps réel</p></div>
-      <div class="portfolio-item"><i class="fas fa-calendar-check"></i><h4>Rendez-Vous Pro</h4><p>Application de prise de rendez-vous en ligne</p></div>
     </div>
   </section>
 
@@ -610,5 +901,263 @@
   </footer>
 
 </main>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div id="modalContent"></div>
+    <a href="mailto:contact@meezus.dev" class="btn-primary" style="display: inline-block; margin-top: 16px; padding: 12px 32px;">
+      <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Demander un devis
+    </a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Données détaillées pour chaque service tarifaire
+    const pricingData = [
+      {
+        icon: "fas fa-flag",
+        name: "Landing page",
+        price: "80 000",
+        unit: "FCFA",
+        features: [
+          "Page unique optimisée pour la conversion",
+          "Design responsive (mobile, tablette, desktop)",
+          "Formulaire de contact fonctionnel",
+          "Intégration de vos visuels et textes",
+          "Optimisation SEO de base",
+          "Déploiement inclus"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-window-maximize",
+        name: "Site vitrine",
+        price: "180 000",
+        unit: "FCFA",
+        features: [
+          "Jusqu'à 5 pages (accueil, services, à propos, contact, blog)",
+          "Design personnalisé sur mesure",
+          "Galerie photos / portfolio intégrée",
+          "Formulaire de contact avancé",
+          "Optimisation SEO complète",
+          "Déploiement & support 15 jours"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-crown",
+        name: "Vitrine premium",
+        price: "350 000",
+        unit: "FCFA",
+        features: [
+          "Jusqu'à 10 pages avec animations fluides",
+          "Design UI/UX premium personnalisé",
+          "Blog intégré avec catégories",
+          "Système de newsletter basique",
+          "Optimisation SEO & performance avancée",
+          "Dashboard d'administration simple",
+          "Déploiement & support 30 jours"
+        ],
+        highlight: true
+      },
+      {
+        icon: "fas fa-shopping-bag",
+        name: "E-commerce",
+        price: "700 000",
+        unit: "FCFA",
+        features: [
+          "Catalogue produits avec catégories et filtres",
+          "Panier & tunnel de commande complet",
+          "Paiement mobile (Orange Money, MTN, Wave)",
+          "Espace client (commandes, profil)",
+          "Tableau de bord administrateur",
+          "Gestion des stocks simplifiée",
+          "Déploiement & formation incluse"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-globe",
+        name: "Application web",
+        price: "800 000",
+        unit: "FCFA",
+        features: [
+          "Application web sur mesure (React/Next.js)",
+          "Authentification & gestion des rôles",
+          "Base de données et API REST dédiée",
+          "Interface d'administration complète",
+          "Tests unitaires & d'intégration",
+          "Déploiement sur serveur sécurisé",
+          "Support technique 30 jours"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-mobile-alt",
+        name: "App mobile Flutter",
+        price: "900 000",
+        unit: "FCFA",
+        features: [
+          "Application mobile native (iOS & Android)",
+          "Interface fluide et animations soignées",
+          "Authentification & profils utilisateurs",
+          "Synchronisation avec API backend",
+          "Mode hors-ligne partiel",
+          "Publication sur les stores incluse",
+          "Support & maintenance 30 jours"
+        ],
+        highlight: true
+      },
+      {
+        icon: "fas fa-plug",
+        name: "API Laravel",
+        price: "250 000",
+        unit: "FCFA",
+        features: [
+          "API RESTful complète et documentée",
+          "Authentification par tokens (Sanctum)",
+          "Endpoints CRUD pour vos ressources",
+          "Validation et gestion des erreurs",
+          "Documentation Postman fournie",
+          "Déploiement sur votre serveur"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-chart-pie",
+        name: "Dashboard admin",
+        price: "300 000",
+        unit: "FCFA",
+        features: [
+          "Interface d'administration intuitive",
+          "Tableaux de bord avec graphiques",
+          "Gestion des utilisateurs et rôles",
+          "Export de données (CSV, PDF)",
+          "Statistiques en temps réel",
+          "Design responsive adapté"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-paint-brush",
+        name: "Figma → Next/React",
+        price: "150 000",
+        unit: "FCFA",
+        features: [
+          "Intégration fidèle de votre maquette Figma",
+          "Code React/Next.js propre et modulaire",
+          "Composants réutilisables",
+          "Animations et transitions fluides",
+          "Responsive design impeccable",
+          "Revue de code incluse"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-bug",
+        name: "Correction bugs",
+        price: "25 000",
+        unit: "FCFA",
+        features: [
+          "Diagnostic et correction de bugs",
+          "Prix par intervention (hors développement lourd)",
+          "Rapport de correction fourni",
+          "Test de non-régression",
+          "Intervention rapide sous 48h"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-cloud-upload-alt",
+        name: "Déploiement",
+        price: "50 000",
+        unit: "FCFA",
+        features: [
+          "Mise en ligne sur votre serveur/hébergement",
+          "Configuration du nom de domaine",
+          "Certificat SSL activé",
+          "Sauvegarde de la base de données",
+          "Vérification post-déploiement"
+        ],
+        highlight: false
+      },
+      {
+        icon: "fas fa-sync-alt",
+        name: "Maintenance",
+        price: "40 000",
+        unit: "FCFA/mois",
+        features: [
+          "Mises à jour de sécurité régulières",
+          "Sauvegardes automatiques",
+          "Surveillance de la disponibilité",
+          "Corrections de bugs mineurs incluses",
+          "Support prioritaire par email",
+          "Engagement mensuel sans durée minimum"
+        ],
+        highlight: true,
+        isSubscription: true
+      }
+    ];
+
+    const pricingGrid = document.getElementById('pricingGrid');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+    const modalClose = document.getElementById('modalClose');
+
+    // Génération des cartes tarifaires
+    function renderPricingCards() {
+      pricingGrid.innerHTML = '';
+      pricingData.forEach((service, index) => {
+        const card = document.createElement('div');
+        card.className = 'pricing-card' + (service.highlight ? ' highlight-card' : '');
+        card.setAttribute('data-index', index);
+        card.innerHTML = `
+          <div class="click-hint"><i class="fas fa-info-circle"></i> détails</div>
+          <div class="service-name"><i class="${service.icon}"></i> ${service.name}</div>
+          <div class="price">${service.price} <small>${service.unit}</small></div>
+          ${service.isSubscription ? '<div class="badge-mensuel">abonnement</div>' : ''}
+        `;
+        card.addEventListener('click', () => openModal(index));
+        pricingGrid.appendChild(card);
+      });
+    }
+
+    function openModal(index) {
+      const service = pricingData[index];
+      const featuresHTML = service.features.map(f => `
+        <li><i class="fas fa-circle-check"></i> ${f}</li>
+      `).join('');
+
+      modalContent.innerHTML = `
+        <h2><i class="${service.icon}" style="color:#1f3a77;"></i> ${service.name}</h2>
+        <div class="modal-price">${service.price} <small>${service.unit}</small></div>
+        <ul class="modal-features">${featuresHTML}</ul>
+        ${service.isSubscription ? '<p style="font-size:0.85rem;color:#4a5b7e;margin-top:-8px;"><i class="fas fa-info-circle"></i> Sans engagement, résiliable à tout moment.</p>' : ''}
+      `;
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Initialisation
+    renderPricingCards();
+  })();
+</script>
+
 </body>
 </html>
