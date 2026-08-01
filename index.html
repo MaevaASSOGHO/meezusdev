@@ -793,6 +793,25 @@
       text-shadow: 0 0 15px rgba(139,92,246,0.7);
     }
 
+    .logo-footer {
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #4b7bff, #8b5cf6, #d946ef);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5));
+        }
+        .logo-footer span {
+        font-weight: 300;
+        background: linear-gradient(135deg, #9aa4bf, #cbd5e1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: none;
+    }
+
     @media (max-width: 900px) {
       .services-grid { grid-template-columns: 1fr; }
     }
@@ -925,7 +944,7 @@
 
   <footer class="footer">
     <div>
-      <strong style="font-size:1.2rem; color:#fff;">MEEZUS DEV</strong>
+      <strong class="footer-logo" style="font-size: 1.2rem;">MEEZUS <span>DEV</span></strong>
       <span style="margin-left:16px;">Développeur web & mobile · Côte d'Ivoire</span>
     </div>
     <div class="social">
